@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="TestGame"
-run/main_scene="uid://blt0b18t52mkw"
+run/main_scene="uid://dj75vnpyabuij"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=980
+window/size/viewport_height=550
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
