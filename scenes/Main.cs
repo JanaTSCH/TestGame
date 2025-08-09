@@ -44,7 +44,7 @@ public partial class Main : Node
 		if (cursor.Visible && (!hoveredGridCell.HasValue || hoveredGridCell.Value != gridPosition)) 
 		{
 			hoveredGridCell = gridPosition;
-			gridManager.HighlightValidTilesInRadius(hoveredGridCell.Value, 3);
+			gridManager.HighlightBuildableTiles();
 		}
 	}
 
@@ -58,7 +58,7 @@ public partial class Main : Node
 		gridManager.MarkTileAsOccupied(hoveredGridCell.Value);
 
 		hoveredGridCell = null;
-		gridManager.ClearHighlight();
+		// gridManager.ClearHighlight();
 	}
 
 	private void OnButtonPressed() 
