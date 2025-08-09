@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://dj75vnpyabuij"]
+[gd_scene load_steps=6 format=4 uid="uid://cn17585lkwrbe"]
 
 [ext_resource type="Script" uid="uid://d1ulfdqwtvof1" path="res://scenes/Main.cs" id="1_o5qli"]
 [ext_resource type="TileSet" uid="uid://gv7qal45oqex" path="res://resources/tiles.tres" id="2_0bbpv"]
+[ext_resource type="PackedScene" uid="uid://dfwyccjk5rdgh" path="res://scenes/manager/GridManager.tscn" id="2_rarhs"]
 [ext_resource type="TileSet" uid="uid://bolr32g1mi7mn" path="res://resources/highlight_tileset.tres" id="2_rvslj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_elqb8"]
@@ -10,7 +11,11 @@ size = Vector2(64, 64)
 [node name="Main" type="Node"]
 script = ExtResource("1_o5qli")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="GridManager" parent="." node_paths=PackedStringArray("highlightTileMapLayer", "baseTerrainTileMapLayer") instance=ExtResource("2_rarhs")]
+highlightTileMapLayer = NodePath("../HighlightTileMapLayer")
+baseTerrainTileMapLayer = NodePath("../BaseTerrainTileMapLayer")
+
+[node name="BaseTerrainTileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAEAAMAAAAGAAEAAAADAAMAAAAGAAEAAAADAAQAAAAGAAEAAAACAAQAAAAGAAEAAAACAAUAAAAGAAEAAAACAAYAAAAHAAIAAAABAAYAAAAFAAIAAAABAAUAAAAFAAEAAAADAAUAAAAGAAIAAAAEAAUAAAAGAAIAAAAFAAUAAAAGAAIAAAAGAAUAAAAGAAIAAAAHAAUAAAAGAAEAAAAIAAUAAAAGAAIAAAAJAAUAAAAGAAEAAAAKAAUAAAAGAAIAAAALAAUAAAAGAAIAAAAMAAUAAAAHAAIAAAAEAAQAAAAGAAEAAAAFAAQAAAAGAAEAAAAGAAQAAAAGAAEAAAAHAAQAAAAGAAEAAAAIAAQAAAAGAAEAAAAJAAQAAAAGAAEAAAAKAAQAAAAGAAEAAAALAAQAAAAGAAEAAAAMAAQAAAAHAAAAAAABAAQAAAAFAAAAAAACAAMAAAAFAAAAAAADAAIAAAAFAAAAAAAEAAIAAAAGAAAAAAAFAAIAAAAHAAAAAAAFAAMAAAAGAAEAAAAGAAMAAAAGAAAAAAAHAAMAAAAGAAAAAAAIAAMAAAAGAAEAAAAJAAMAAAAGAAEAAAAKAAMAAAAGAAAAAAALAAMAAAAHAAAAAAAJAAIAAAAHAAAAAAAIAAIAAAAFAAAAAAAHAAYAAAAIAAIAAAAJAAYAAAAIAAIAAAAKAAEAAAAIAAMAAAA=")
 tile_set = ExtResource("2_0bbpv")
 
