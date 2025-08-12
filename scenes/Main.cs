@@ -9,6 +9,7 @@ public partial class Main : Node
 	private Sprite2D cursor;
 	private PackedScene buildingScene;
 	private Button placeBuildingButton;
+	private Node2D ySortRoot;
 
 	private Vector2I? hoveredGridCell;
 
@@ -19,10 +20,10 @@ public partial class Main : Node
 		buildingScene = GD.Load<PackedScene>("res://scenes/Building/Building.tscn");
 		gridManager = GetNode<GridManager>("GridManager");
 		cursor = GetNode<Sprite2D>("Cursor");
+		placeBuildingButton = GetNode<Button>("PlaceBuildingButton");
+		ySortRoot = GetNode<Node2D>("YSortRoot");
 
 		cursor.Visible = false;
-
-		placeBuildingButton = GetNode<Button>("PlaceBuildingButton");
 
 		placeBuildingButton.Pressed += OnButtonPressed;
 	}
@@ -52,7 +53,7 @@ public partial class Main : Node
 	{
 		if(!hoveredGridCell.HasValue) return;
 		var building = buildingScene.Instantiate<Node2D>();
-		AddChild(building);
+		ySortRoot.AddChild(building);
 
 		building.GlobalPosition = hoveredGridCell.Value * 64;
 
