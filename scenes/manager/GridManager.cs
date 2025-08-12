@@ -11,21 +11,28 @@ public partial class GridManager : Node
     private HashSet<Vector2I> validBuildableTiles = new();
     
     [Export]
-    public TileMapLayer highlightTileMapLayer;
+    private TileMapLayer highlightTileMapLayer;
 
     [Export]
-    public TileMapLayer baseTerrainTileMapLayer;
+    private TileMapLayer baseTerrainTileMapLayer;
+
+    private List<TileMapLayer> allTileMapLayers = new();
 
     public override void _Ready()
     {
         GameEvents.Instance.BuildingPlaced += OnBuildingPlaced;
+        allTileMapLayers = GetAllTileMapLayers(baseTerrainTileMapLayer);
     }
 
     public bool IsTilePositionValid(Vector2I tilePosition) 
     {
-        var customData = baseTerrainTileMapLayer.GetCellTileData(tilePosition);
-        if(customData == null) return false;
-        return (bool)customData.GetCustomData("buildable");        
+        foreach (var layer in allTileMapLayers)
+        {
+            var customData = layer.GetCellTileData(tilePosition);
+            if(customData == null) continue;
+            return (bool)customData.GetCustomData("buildable");        
+        }
+        return false;
     }
 
     public bool IsTilePositionBuildable(Vector2I tilePosition)
@@ -67,6 +74,22 @@ public partial class GridManager : Node
 		gridPosition = gridPosition.Floor();
 		return new Vector2I((int)gridPosition.X, (int)gridPosition.Y);
 	}
+
+    private List<TileMapLayer> GetAllTileMapLayers(TileMapLayer rootTileMapLayer)
+    {
+        var result = new List<TileMapLayer>();
+        var children = rootTileMapLayer.GetChildren();
+        children.Reverse();
+        foreach (var child in children)
+        {
+            if (child is TileMapLayer childpLayer)
+            {
+                result.AddRange(GetAllTileMapLayers(childpLayer));
+            }
+        }
+        result.Add(rootTileMapLayer);
+        return result;
+    }
 
     private void UpdateValidBuildableTiles(BuildingComponent buildingComponent)
     {
