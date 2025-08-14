@@ -14,7 +14,7 @@ public partial class BuildingManager : Node
 	private readonly StringName ACTION_RIGHT_CLICK = "right_click";
 
 	[Export]
-	private int startingResourceCount = 4;
+	private int startingResourceCount = 6;
 	[Export]
 	private GridManager gridManager;
 	[Export]
